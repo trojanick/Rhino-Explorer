@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#173f35" />
+  <meta name="description" content="Ask Rhino Explorer questions about white rhinos, their habitats, behavior, care, and conservation." />
+  <title>Rhino Explorer | White Rhino Exhibit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Rhino Explorer home">
+        <span class="brand-mark" aria-hidden="true">R</span>
+        <span class="brand-name">RHINO<span>EXPLORER</span></span>
+      </a>
+      <div class="topbar-right">
+        <span class="status-pill" id="modePill"><span class="status-dot"></span><span id="modeLabel">CONNECTING</span></span>
+        <button class="icon-button" id="clearButton" type="button" title="Start a new conversation" aria-label="Start a new conversation">↻</button>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">WHITE RHINO EXHIBIT · VISITOR GUIDE</p>
+          <h1>Meet the <em>White</em><br />Rhino.</h1>
+          <p class="hero-description">Big animal. Big personality. Ask about any part of white-rhino life, and the connected guide can research reliable online sources.</p>
+          <div class="hero-tags"><span>🦏 &nbsp; Animal facts</span><span>🌿 &nbsp; Conservation</span><span>💧 &nbsp; Animal care</span></div>
+        </div>
+        <div class="rhino-art" aria-hidden="true">
+          <div class="sun-disc"></div>
+          <div class="art-ring ring-one"></div>
+          <div class="art-ring ring-two"></div>
+          <div class="rhino-emoji">🦏</div>
+          <div class="art-caption">THE WIDE-MOUTHED GRAZER</div>
+        </div>
+      </section>
+
+      <section class="workspace" aria-label="Rhino Explorer assistant">
+        <aside class="explore-panel">
+          <div class="section-heading">
+            <span class="section-kicker">EXPLORE</span>
+            <h2>Choose a topic</h2>
+            <p>Start with one of these visitor favorites.</p>
+          </div>
+          <div class="topic-list">
+            <button class="topic-button" data-question="What do Southern White Rhinos eat?" type="button"><span class="topic-icon green">🌾</span><span><strong>Food & diet</strong><small>What's on the menu?</small></span><span class="topic-arrow">↗</span></button>
+            <button class="topic-button" data-question="Where do white rhinos live in the wild?" type="button"><span class="topic-icon sand">🌍</span><span><strong>Habitat</strong><small>Explore their world</small></span><span class="topic-arrow">↗</span></button>
+            <button class="topic-button" data-question="How do white rhinos behave with each other?" type="button"><span class="topic-icon blue">👣</span><span><strong>Behavior</strong><small>Get to know a rhino</small></span><span class="topic-arrow">↗</span></button>
+            <button class="topic-button" data-question="How are white rhinos cared for in managed settings?" type="button"><span class="topic-icon aqua">💧</span><span><strong>Animal care</strong><small>Care, habitat & enrichment</small></span><span class="topic-arrow">↗</span></button>
+            <button class="topic-button" data-question="What is the conservation status of white rhinos?" type="button"><span class="topic-icon gold">🛡️</span><span><strong>Conservation</strong><small>How can we help?</small></span><span class="topic-arrow">↗</span></button>
+            <button class="topic-button" data-question="Tell me a surprising white rhino fact." type="button"><span class="topic-icon pink">✨</span><span><strong>Fun facts</strong><small>Surprise me</small></span><span class="topic-arrow">↗</span></button>
+          </div>
+          <div class="did-you-know"><span class="fact-label">DID YOU KNOW?</span><p>A white rhino's wide, square-shaped mouth helps it graze short grass close to the ground.</p><span class="fact-source">SOURCE: INTERNATIONAL RHINO FOUNDATION</span></div>
+        </aside>
+
+        <section class="chat-panel" aria-label="Chat with Rhino Explorer">
+          <div class="chat-header">
+            <div class="assistant-avatar">🦏</div>
+            <div><h2>Ask Rhino Explorer</h2><p><span class="live-dot"></span> Ask about any aspect of white rhinos</p></div>
+            <span class="chat-label">VISITOR GUIDE</span>
+          </div>
+          <div class="chat-messages" id="chatMessages" aria-live="polite" aria-label="Conversation">
+            <div class="message-row assistant-row">
+              <div class="message-avatar">🦏</div>
+              <div class="message-content"><span class="speaker">RHINO EXPLORER</span><div class="bubble assistant-bubble">Hi there, explorer! 👋 I'm your white rhino guide. Ask me anything about what rhinos eat, where they live, how they behave, how animal-care teams look after them, or how we can protect them.</div><span class="message-meta">A curious mind is always welcome here.</span></div>
+            </div>
+          </div>
+          <div class="suggestion-row" id="suggestions">
+            <button type="button" data-question="Why do rhinos roll in mud?">Why mud baths?</button>
+            <button type="button" data-question="How much can a white rhino weigh?">How big are they?</button>
+            <button type="button" data-question="Why are rhinos poached?">Why are they threatened?</button>
+          </div>
+          <form class="composer" id="chatForm">
+            <label class="sr-only" for="questionInput">Ask a question about white rhinos</label>
+            <textarea id="questionInput" rows="1" maxlength="900" placeholder="Ask any question about white rhinos..." autocomplete="off"></textarea>
+            <div class="composer-actions">
+              <div class="utility-actions">
+                <button type="button" class="utility-button" id="voiceButton" title="Speak your question"><span>🎙</span> <span>Voice</span></button>
+                <button type="button" class="utility-button" id="audioButton" title="Toggle spoken answers"><span>🔊</span> <span id="audioLabel">Read aloud</span></button>
+              </div>
+              <button class="send-button" type="submit" id="sendButton"><span>Ask Rhino</span><span class="send-arrow">➜</span></button>
+            </div>
+          </form>
+          <p class="privacy-note">Live web sources appear with answers when GPT + Web Search is connected · Follow all exhibit signs and staff instructions.</p>
+        </section>
+      </section>
+
+      <section class="bottom-strip">
+        <div><span class="bottom-icon">🌱</span><span><strong>Small questions. Big discoveries.</strong><small>Learn more about the animals that share our planet.</small></span></div>
+        <a href="https://rhinos.org/about-rhinos/rhino-species/white-rhino/" target="_blank" rel="noopener noreferrer">Explore white rhino facts <span>↗</span></a>
+      </section>
+    </main>
+
+    <footer class="footer"><span>RHINO EXPLORER · EDUCATIONAL PROTOTYPE</span><span>Built as a visitor experience concept for a white rhino exhibit</span></footer>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="/app.js" defer></script>
+</body>
+</html>
