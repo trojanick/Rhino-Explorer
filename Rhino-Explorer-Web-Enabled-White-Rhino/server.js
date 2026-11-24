@@ -32,6 +32,7 @@ const model = process.env.OPENAI_MODEL || "gpt-6-luna";
 const apiKey = process.env.OPENAI_API_KEY?.trim() || "";
 const hasApiKey = apiKey.length > 0;
 const rateBuckets = new Map();
+console.log(`Rhino Explorer starting. OpenAI API key configured: ${hasApiKey ? "yes" : "no"}. Model: ${hasApiKey ? model : "demo mode"}.`);
 
 const systemInstructions = `You are Rhino Explorer, a friendly educational assistant whose only subject is the white rhinoceros (Ceratotherium simum).
 
@@ -172,7 +173,20 @@ async function handleChat(req, res) {
 
     const result = await apiResponse.json().catch(() => ({}));
     if (!apiResponse.ok) {
-      console.error("OpenAI request failed with status:", apiResponse.status);
+      // Log the useful OpenAI error fields for debugging, while redacting any
+      // API-key-like strings before they reach Render logs.
+      const openAiError = result?.error && typeof result.error === "object" ? result.error : {};
+      const redact = (value) => String(value ?? "")
+        .replace(/Bearer\s+[^\s"']+/gi, "Bearer [redacted]")
+        .replace(/sk-[A-Za-z0-9_-]{8,}/g, "[redacted API key]");
+      const details = {
+        status: apiResponse.status,
+        type: redact(openAiError.type),
+        code: redact(openAiError.code),
+        message: redact(openAiError.message),
+        requestId: redact(apiResponse.headers.get("x-request-id"))
+      };
+      console.error("OpenAI API error details:", JSON.stringify(details));
       return sendJson(res, 502, { error: "The AI service could not answer right now. Please try again or ask an exhibit staff member." });
     }
 
